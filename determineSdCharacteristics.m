@@ -1,5 +1,3 @@
-% function[localMins] = determineSdCharacteristics(data, t, sdDepolEvents, Ts, Fs, numSD)
-
 clear;
 clc;
 
@@ -19,14 +17,7 @@ L = length(data(1,:)); % length of data
 numSD = length(sdDepolEvents);
 t = (0:L-1)/Fs; % time vector
 Ts = 1/Fs;
-
 delta = round(20*Fs); % # of samples in 20s-delta
-%[diffSig, diffTime] = createDiffSig(data, t, delta);
-%[b, a] = sdFreqAnalysis(diffSig, Fs);
-
-% for i = 1:60
-%     data(i,:) = filter(b,a,diffSig(i,:)); % 
-% end
 
 figure;  
 plot(t, data);
