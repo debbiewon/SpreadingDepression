@@ -1,6 +1,9 @@
-function corrheatmap(desch, RxyAmpLag, center, step, figs)
+function [MaxX, MaxY] = corrheatmap(desch, RxyAmpLag, center, step, figs, numheat, numpoints)
 
-for a=1:15
+MaxX=zeros(numheat,numpoints);
+MaxY=zeros(numheat,numpoints);
+
+for a=1:numheat
     for idx=1:64
         if RxyAmpLag(a,idx) == 0
             RxyAmpLag(a,idx) = NaN;
@@ -9,16 +12,17 @@ for a=1:15
 end
 figure(97);
 
-for a=1:15
+for a=1:numheat
     RxyAmp = reshape(RxyAmpLag(a,:),8,8);
     RxyAmp = RxyAmp.';
     
-    if a==1 || a==15
-        RxyAmp
+    if a==1 || a==numheat
         SortIdx = sort(RxyAmpLag(a,:), 'descend');
-        MaxIdx = SortIdx(5:10)
-        for b = 1:5
-            [row, col]=find(RxyAmp == MaxIdx)
+        MaxIdx = SortIdx(5:(5+numpoints));
+        for b = 1:numpoints
+            [row, col]=find(RxyAmp == MaxIdx(b)); 
+            MaxX(a,b)=col;
+            MaxY(a,b)=row;
         end
     end
    
@@ -30,7 +34,7 @@ for a=1:15
 end
 
 if figs ==1
-    for a=1:15
+    for a=1:numheat
         RxyAmp = reshape(RxyAmpLag(a,:),8,8);
         RxyAmp = RxyAmp.';
     
@@ -42,4 +46,5 @@ if figs ==1
     end
 end
 
-
+MaxX(2:end-1,:)=[];
+MaxY(2:end-1,:)=[];

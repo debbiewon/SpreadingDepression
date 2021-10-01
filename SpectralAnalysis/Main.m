@@ -2,7 +2,7 @@ close all
 clc
 clear
 
-load('Rat 17_003_original');
+load('Rat 17_004_original');
 load('Rat 17_10012019_003_Marked')
 
 LUT = [61 7 36 6 35 3 1 62 ...      %LUT refrences where specific channels are
@@ -38,10 +38,17 @@ figure(98);
 %% Create Heatmaps
 %if you want individual figures for each heatmap set figs to 1
 figs=0;
-corrheatmap(desch, RxyAmpLag, center, step, figs);
+%how many heat maps total do you want 
+numheat=15;
+%number of points to consider for the high clusters
+numpoints=8;
+[MaxX, MaxY] = corrheatmap(desch, RxyAmpLag, center, step, figs, numheat, numpoints);
 figure(97)
 
 %% Outlier Channels
+%Maximum allowable distance
+% MaxDist = 10;
+% [MaxX, MaxY] = cluster(MaxX, MaxY, MaxDist, numpoints);
 negout=[53 21 48 47];
 posout=[7 10 36 40];
 figure(96)
